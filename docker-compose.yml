@@ -1,0 +1,71 @@
+version: '3.7'
+services:
+  audit-auth-microservice:
+    depends_on:
+      - eureka-server
+    environment:
+      EUREKA_HOST:  eureka-server
+      EUREKA_PORT: 8761
+    image: audit-auth-microservice
+    networks:
+      - app-network
+    ports:
+      - "8400:8400"
+    restart: always
+  eureka-server:
+    image: eureka-server
+    networks:
+      - app-network
+    ports:
+      - "8761:8761"
+    restart: always
+  audit-severity-microservice:
+    depends_on:
+      - eureka-server
+    environment:
+      EUREKA_HOST: eureka-server
+      EUREKA_PORT: 8761
+    image: audit-severity-microservice
+    networks:
+      - app-network
+    ports:
+      - "8300:8300"
+    restart: always
+  audit-benchmark-microservice:
+    depends_on:
+      - eureka-server
+    environment:
+      EUREKA_HOST: eureka-server
+      EUREKA_PORT: 8761
+    image: audit-benchmark-microservice
+    networks:
+      - app-network
+    ports:
+      - "8200:8200"
+    restart: always
+  audit-checklist-microservice:
+    depends_on:
+      - eureka-server
+    environment:
+      EUREKA_HOST: eureka-server
+      EUREKA_PORT: 8761
+    image: audit-checklist-microservice
+    networks:
+      - app-network
+    ports:
+      - "8100:8100"
+    restart: always
+  audit-portal-microservice:
+    depends_on:
+      - eureka-server
+    environment:
+      EUREKA_HOST: eureka-server
+      EUREKA_PORT: 8761
+    image: audit-portal-microservice
+    networks:
+      - app-network
+    ports:
+      - "8500:8500"
+    restart: always
+networks:
+  app-network:
