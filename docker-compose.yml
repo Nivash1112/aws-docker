@@ -67,5 +67,18 @@ services:
     ports:
       - "8500:8500"
     restart: always
+     zuul-gateway-server:
+    depends_on:
+      - eureka-server
+    environment:
+      EUREKA_HOST:  eureka-server
+      EUREKA_PORT: 8761
+    image: zuul-gateway-server
+    networks:
+      - app-network
+    ports:
+      - "8888:8888"
+    restart: always
+
 networks:
   app-network:
